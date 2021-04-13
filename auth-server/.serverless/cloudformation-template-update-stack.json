@@ -83,6 +83,12 @@
         "LogGroupName": "/aws/lambda/auth-server-dev-getAccessToken"
       }
     },
+    "GetCalendarEventsLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/auth-server-dev-getCalendarEvents"
+      }
+    },
     "IamRoleLambdaExecution": {
       "Type": "AWS::IAM::Role",
       "Properties": {
@@ -167,7 +173,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/auth-server/dev/1618146295356-2021-04-11T13:04:55.356Z/auth-server.zip"
+          "S3Key": "serverless/auth-server/dev/1618311371862-2021-04-13T10:56:11.862Z/auth-server.zip"
         },
         "Handler": "handler.getAuthURL",
         "Runtime": "nodejs12.x",
@@ -200,7 +206,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/auth-server/dev/1618146295356-2021-04-11T13:04:55.356Z/auth-server.zip"
+          "S3Key": "serverless/auth-server/dev/1618311371862-2021-04-13T10:56:11.862Z/auth-server.zip"
         },
         "Handler": "handler.getAccessToken",
         "Runtime": "nodejs12.x",
@@ -226,24 +232,67 @@
         "GetAccessTokenLogGroup"
       ]
     },
-    "GetAccessTokenLambdaVersionIretWoBrVAld9mjw7mNaNzy7NxlMZghyqYOI5uqgao": {
+    "GetCalendarEventsLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/auth-server/dev/1618311371862-2021-04-13T10:56:11.862Z/auth-server.zip"
+        },
+        "Handler": "handler.getCalendarEvents",
+        "Runtime": "nodejs12.x",
+        "FunctionName": "auth-server-dev-getCalendarEvents",
+        "MemorySize": 1024,
+        "Timeout": 6,
+        "Environment": {
+          "Variables": {
+            "CLIENT_ID": "464870979009-ldp381hd7o4e9m7krhbv2ag5ta20sfqn.apps.googleusercontent.com",
+            "CLIENT_SECRET": "BpL2a-qJwhSHK4uPClEZoIoH",
+            "PROJECT_ID": "meet-app-310314",
+            "CALENDAR_ID": "fullstackwebdev@careerfoundry.com"
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRoleLambdaExecution",
+            "Arn"
+          ]
+        }
+      },
+      "DependsOn": [
+        "GetCalendarEventsLogGroup"
+      ]
+    },
+    "GetAccessTokenLambdaVersionfJdnV9xKLAEPqLzJtrDbHcajEPbiJUJWja5dM8To": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GetAccessTokenLambdaFunction"
         },
-        "CodeSha256": "hE0JeI4yK7SUc8vVWXI2d5VB0zlTyZznn5a+MIK6IU8="
+        "CodeSha256": "5lN9QxTpAQgkDm8YpMjlURXAPfH3UdJkUcjYVkYMCog="
       }
     },
-    "GetAuthURLLambdaVersionpUnFfeWvF4LvEG4o5isrnt2x6aaROIL8kNCIA457m4": {
+    "GetCalendarEventsLambdaVersionE4pGcKpaCjL46yYyG0CMVAD7SzlulKOrc3MwKmYCQ": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "GetCalendarEventsLambdaFunction"
+        },
+        "CodeSha256": "5lN9QxTpAQgkDm8YpMjlURXAPfH3UdJkUcjYVkYMCog="
+      }
+    },
+    "GetAuthURLLambdaVersionxcRVIZR7c9Lca47iNTNy17ZuBRT7P35lLdWceR20E": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GetAuthURLLambdaFunction"
         },
-        "CodeSha256": "hE0JeI4yK7SUc8vVWXI2d5VB0zlTyZznn5a+MIK6IU8="
+        "CodeSha256": "5lN9QxTpAQgkDm8YpMjlURXAPfH3UdJkUcjYVkYMCog="
       }
     },
     "ApiGatewayRestApi": {
@@ -304,6 +353,30 @@
           "Ref": "ApiGatewayResourceApiToken"
         },
         "PathPart": "{code}",
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayResourceApiGetDashevents": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiGatewayResourceApi"
+        },
+        "PathPart": "get-events",
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayResourceApiGetDasheventsAccesstokenVar": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiGatewayResourceApiGetDashevents"
+        },
+        "PathPart": "{access_token}",
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
         }
@@ -395,7 +468,50 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1618146292969": {
+    "ApiGatewayMethodApiGetDasheventsAccesstokenVarGet": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "GET",
+        "RequestParameters": {},
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceApiGetDasheventsAccesstokenVar"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "GetCalendarEventsLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "MethodResponses": []
+      }
+    },
+    "ApiGatewayDeployment1618311369491": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -405,7 +521,8 @@
       },
       "DependsOn": [
         "ApiGatewayMethodApiGetDashauthDashurlGet",
-        "ApiGatewayMethodApiTokenCodeVarGet"
+        "ApiGatewayMethodApiTokenCodeVarGet",
+        "ApiGatewayMethodApiGetDasheventsAccesstokenVarGet"
       ]
     },
     "GetAuthURLLambdaPermissionApiGateway": {
@@ -481,6 +598,43 @@
           ]
         }
       }
+    },
+    "GetCalendarEventsLambdaPermissionApiGateway": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "GetCalendarEventsLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "/*/*"
+            ]
+          ]
+        }
+      }
     }
   },
   "Outputs": {
@@ -492,13 +646,19 @@
     "GetAccessTokenLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetAccessTokenLambdaVersionIretWoBrVAld9mjw7mNaNzy7NxlMZghyqYOI5uqgao"
+        "Ref": "GetAccessTokenLambdaVersionfJdnV9xKLAEPqLzJtrDbHcajEPbiJUJWja5dM8To"
+      }
+    },
+    "GetCalendarEventsLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "GetCalendarEventsLambdaVersionE4pGcKpaCjL46yYyG0CMVAD7SzlulKOrc3MwKmYCQ"
       }
     },
     "GetAuthURLLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetAuthURLLambdaVersionpUnFfeWvF4LvEG4o5isrnt2x6aaROIL8kNCIA457m4"
+        "Ref": "GetAuthURLLambdaVersionxcRVIZR7c9Lca47iNTNy17ZuBRT7P35lLdWceR20E"
       }
     },
     "ServiceEndpoint": {

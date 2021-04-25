@@ -1,44 +1,43 @@
 import React, { Component } from "react";
 
-
 class Event extends Component {
-
   state = {
-    isExpanded: false
-}
+    isExpanded: false,
+  };
+
+  handleShowHideButton = () => {
+    if (this.state.showHideDetails === true) {
+      this.setState({ showHideDetails: false });
+    } else {
+      this.setState({ showHideDetails: true });
+    }
+  };
 
   render() {
-      const { event } = this.props;
-      const { isExpanded } = this.state;
-      
+    const { event } = this.props;
+
     return (
-      <div className="event">
-          <div className="collapsed-event">
-              <div className="event-title">
-                  <h1>{event.summary}</h1>
-                  <div className="event-date">
-                      <p>{new Date(event.date).toLocaleDateString(
-                          'en-gb', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'utc'})}
-                      </p>
-                  </div>
-              </div>
-              <div className="location">
-                  <p>{event.location}</p>
-              </div>
-              
+      <div className="event-container">
+        <h1>{event.summary}</h1>
+        <p>{event.start.dateTime}</p>
+        <p className="locations">{event.location}</p>
+
+        {this.state.showHideDetails && (
+          <div className="event-details">
+            <h2>About event:</h2>
+            <a href={event.htmlLink}>See Details on Google Calendar</a>
+            <p>{event.description}</p>
           </div>
-          { isExpanded ? <div className="event-details">
-              <div className="line"/>
-              <p>{event.description}</p>
-              <a href={event.htmlLink} target="_blank" rel="noreferrer">Event Details</a>
-          </div> : null}
-          <div className="more-less__button" onClick={this.handleExpandEvent}>
-              <button className="event__details-button">
-                  {isExpanded ? "Less" : "More"}
-              </button>
-          </div>
+        )}
+
+        <button
+          className="show-hide-btn"
+          onClick={() => this.handleShowHideButton()}
+        >
+          {!this.state.showHideDetails ? "show details" : "hide-details"}
+        </button>
       </div>
-  )
+    );
   }
 }
 export default Event;

@@ -19,9 +19,15 @@ class Event extends Component {
     return (
       <div className="event-container">
         <h1>{event.summary}</h1>
-        <p>{event.start.dateTime}</p>
+        <p>
+          {new Date(event.start.dateTime).toLocaleDateString("en-gb", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+            timeZone: "utc",
+          })}
+        </p>{" "}
         <p className="locations">{event.location}</p>
-
         {this.state.showHideDetails && (
           <div className="event-details">
             <h2>About event:</h2>
@@ -29,7 +35,6 @@ class Event extends Component {
             <p>{event.description}</p>
           </div>
         )}
-
         <button
           className="show-hide-btn"
           onClick={() => this.handleShowHideButton()}

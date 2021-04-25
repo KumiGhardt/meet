@@ -21,6 +21,7 @@ p {
   margin: 5px 0;
 }
 
+
 .display-none {
   display: none;
 }
@@ -80,10 +81,10 @@ input[type="number"] {
   background-color: #bcdcdb;
 }
 
-.event {
-  padding: 10px 10px 35px;
+.event-container {
+  padding: 10px 40px 35px;
   margin-bottom: 10px;
-  text-align: left;
+  text-align: center;
   border: 1px solid #ccc;
   border-radius: 4px;
   position: relative;
@@ -97,6 +98,18 @@ input[type="number"] {
   border-radius: 4px;
   outline: none;
   cursor: pointer;
+}
+
+.show-hide-btn {
+  background-color: #016960;
+  color: #ffffff;
+  border-radius: 30px;
+  padding: 5px 8px;
+
+}
+
+.show-hide-btn:hover {
+  background-color: #02b77a;
 }
 
 .name {

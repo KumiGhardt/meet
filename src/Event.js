@@ -26,6 +26,10 @@ class Event extends Component {
             day: "numeric",
             timeZone: "utc",
           })}
+          ,
+          {new Date(event.start.dateTime).toLocaleTimeString("en-gb", {
+            time: "numeric",
+          })}
         </p>{" "}
         <p className="locations">{event.location}</p>
         {this.state.showHideDetails && (

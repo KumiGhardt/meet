@@ -11,7 +11,7 @@ class App extends Component {
     events: [],
 		locations: [],
 		eventCount: 32,
-		currentLocation: "all"
+		selectedLocation: "all"
   };
 
   updateEvents = (location, eventCount) => {
@@ -22,10 +22,13 @@ class App extends Component {
 
       if (selectedLocation === 'all') {
         locationEvents = events.slice(0, count);
+        console.log({locationEvents});
+
       } else {
         locationEvents = events.filter((event) => event.location === selectedLocation)
         .slice(0, count); 
       }
+
       this.setState({
         events: locationEvents,
         eventCount: count,
@@ -55,7 +58,9 @@ class App extends Component {
           locations={this.state.locations}
           updateEvents={this.updateEvents}
         />
-        <NumberOfEvents />
+        <NumberOfEvents 
+        updateEvents={this.updateEvents}
+        />
         <EventList events={this.state.events} />
       </div>
     );

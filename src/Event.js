@@ -15,9 +15,8 @@ class Event extends Component {
 
   render() {
     const { event } = this.props;
-
     return (
-      <div className="event-container">
+      <div className="event" onClick={() => this.handleShowHideButton()}>
         <h1>{event.summary}</h1>
         <p>
           {new Date(event.start.dateTime).toLocaleDateString("en-gb", {

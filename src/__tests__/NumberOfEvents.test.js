@@ -15,13 +15,13 @@ describe("<NumberOfEvents /> component", () => {
 
   test("change state when the number of events changes", () => {
     NumberOfEventsWrapper.setState({
-      eventCount: 1,
+      numberOfEvents: 1,
     });
     const eventObject = { target: { value: 2 } };
     NumberOfEventsWrapper.find(".NumberOfEvents input").simulate(
       "change",
       eventObject
     );
-    expect(NumberOfEventsWrapper.state("eventCount")).toBe(2);
+    expect(NumberOfEventsWrapper.state("numberOfEvents")).toBe(2);
   });
 });

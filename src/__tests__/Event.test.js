@@ -91,7 +91,7 @@ describe("<Event />, component", () => {
   });
 
   test("render correct event details", () => {
-    expect(EventWrapper.find(".event-container")).toHaveLength(1);
+    expect(EventWrapper.find(".event")).toHaveLength(1);
   });
 
   test("render show event-details", () => {

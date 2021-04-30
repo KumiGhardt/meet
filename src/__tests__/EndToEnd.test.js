@@ -33,3 +33,45 @@ describe('show/hide an event details', () => {
     expect(eventDetails).toBeNull();
   });
 });
+
+// describe('filter events by city', () => {
+
+//   let browser;
+//     let page;
+//   beforeAll(async () => {
+//     jest.setTimeout(30000);
+//     browser = await puppeteer.launch({
+//       headless: false,
+//       slowMo: 250 // slow down by 250ms
+//     });
+//     page = await browser.newPage();
+//     await page.goto('http://localhost:3000/');
+//     await page.waitForSelector('.city');
+//     await page.type('#mytextarea', ' ', {delay: 100});
+//   });
+
+//   afterAll(() => {
+//     browser.close();
+//   });
+
+//   test('User can click on the city field to show suggestions', async () => {
+//     const citySearch = await page.$('.city');
+//     expect(citySearch).toBeDefined();
+    
+//   });
+
+//   test('User can type a letter to show city options', async () => {
+   
+//   });
+
+//   test('User can click on the desired city from list', async () => {
+    
+//   });
+
+//   test('on click in field, user can select all cities and they render', async () => {
+    
+//   });
+
+
+
+// })

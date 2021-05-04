@@ -5,6 +5,8 @@ import EventList from "./EventList";
 import CitySearch from "./CitySearch";
 import NumberOfEvents from "./NumberOfEvents";
 import { getEvents, extractLocations } from "./api";
+import { WarningAlert } from './Alert';
+
 
 class App extends Component {
   state = {
@@ -39,6 +41,17 @@ class App extends Component {
 
   componentDidMount() {
     this.mounted = true;
+    if (!navigator.onLine) {
+      return this.setState({
+        warningText:
+          'You are offline',
+      });
+    } else {
+      this.setState({
+       warningText: '',
+     });
+    }
+
     getEvents().then((events) => {
       if (this.mounted) {
         this.setState({ events, locations: extractLocations(events) });
@@ -53,6 +66,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <WarningAlert text={this.state.warningText} />
         <h2>Welcome to the Meet App</h2>
          <p>Choose a City</p>
         <CitySearch
